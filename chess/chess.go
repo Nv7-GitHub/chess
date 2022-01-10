@@ -83,24 +83,24 @@ func NewBoard() *Board {
 	board.Pieces[7][7] = &Rook{}
 	board.Pieces[7][7].SetSide(BLACK)
 
-	// Bishops
-	board.Pieces[0][1] = &Bishop{}
+	// Knights
+	board.Pieces[0][1] = &Knight{}
 	board.Pieces[0][1].SetSide(WHITE)
-	board.Pieces[0][6] = &Bishop{}
+	board.Pieces[0][6] = &Knight{}
 	board.Pieces[0][6].SetSide(WHITE)
-	board.Pieces[7][1] = &Bishop{}
+	board.Pieces[7][1] = &Knight{}
 	board.Pieces[7][1].SetSide(BLACK)
-	board.Pieces[7][6] = &Bishop{}
+	board.Pieces[7][6] = &Knight{}
 	board.Pieces[7][6].SetSide(BLACK)
 
-	// Knights
-	board.Pieces[0][2] = &Knight{}
+	// Bishops
+	board.Pieces[0][2] = &Bishop{}
 	board.Pieces[0][2].SetSide(WHITE)
-	board.Pieces[0][5] = &Knight{}
+	board.Pieces[0][5] = &Bishop{}
 	board.Pieces[0][5].SetSide(WHITE)
-	board.Pieces[7][2] = &Knight{}
+	board.Pieces[7][2] = &Bishop{}
 	board.Pieces[7][2].SetSide(BLACK)
-	board.Pieces[7][5] = &Knight{}
+	board.Pieces[7][5] = &Bishop{}
 	board.Pieces[7][5].SetSide(BLACK)
 
 	// Kings
