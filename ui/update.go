@@ -32,6 +32,10 @@ func (u *UI) RecalcCanMove() {
 
 	for r, v := range u.board.Pieces {
 		for c := range v {
+			if r == u.selected.Row && c == u.selected.Col {
+				u.canMove[r][c] = false
+				continue
+			}
 			u.canMove[r][c] = p.CanMoveTo(u.board, u.selected, chess.Pos{Row: r, Col: c})
 		}
 	}

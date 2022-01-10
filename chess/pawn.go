@@ -5,6 +5,10 @@ type Pawn struct {
 }
 
 func (p *Pawn) CanMoveTo(board *Board, currPos Pos, newPos Pos) bool {
+	if !p.BasicPiece.CanMoveTo(board, currPos, newPos) {
+		return false
+	}
+
 	// Check if going forwards
 	dir := 1
 	if p.Side() == BLACK {

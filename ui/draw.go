@@ -50,7 +50,11 @@ func (u *UI) DrawSquares(screen *ebiten.Image) {
 				if r == u.selected.Row && c == u.selected.Col {
 					im.Set(0, 0, selectedPiece)
 				} else if u.canMove[r][c] {
-					im.Set(0, 0, canMoveSquare)
+					if u.board.Piece(chess.Pos{Row: r, Col: c}) != nil {
+						im.Set(0, 0, killColor)
+					} else {
+						im.Set(0, 0, canMoveSquare)
+					}
 				}
 			}
 

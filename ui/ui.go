@@ -16,6 +16,9 @@ type UI struct {
 func NewUI(board *chess.Board) *UI {
 	u := &UI{
 		board: board,
+
+		hasSelected: false,
+		selected:    chess.Pos{Row: -1, Col: -1},
 	}
 	u.canMove = make([][]bool, len(board.Pieces))
 	for i := range u.canMove {

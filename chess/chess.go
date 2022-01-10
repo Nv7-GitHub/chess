@@ -42,6 +42,10 @@ func (b *BasicPiece) Side() Side {
 	return b.side
 }
 
+func (b *BasicPiece) CanMoveTo(board *Board, currPos Pos, newPos Pos) bool {
+	return board.Piece(newPos) == nil || (board.Piece(newPos) != nil && board.Piece(newPos).Side() != b.Side()) // Checks if there is a piece of your side there
+}
+
 type Board struct {
 	Pieces [8][8]Piece
 }
@@ -63,5 +67,15 @@ func NewBoard() *Board {
 		board.Pieces[6][i] = &Pawn{}
 		board.Pieces[6][i].SetSide(BLACK)
 	}
+
+	// Rooks
+	board.Pieces[0][0] = &Rook{}
+	board.Pieces[0][0].SetSide(WHITE)
+	board.Pieces[0][7] = &Rook{}
+	board.Pieces[0][7].SetSide(WHITE)
+	board.Pieces[7][0] = &Rook{}
+	board.Pieces[7][0].SetSide(BLACK)
+	board.Pieces[7][7] = &Rook{}
+	board.Pieces[7][7].SetSide(BLACK)
 	return board
 }
