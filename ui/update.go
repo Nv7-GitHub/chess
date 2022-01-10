@@ -13,6 +13,14 @@ func (u *UI) Update() error {
 		squareWidth, squareHeight := WIDTH/len(u.board.Pieces[0]), HEIGHT/len(u.board.Pieces)
 		squareX, squareY := posx/squareWidth, posy/squareHeight
 
+		// Is moving piece?
+		// TODO: Implement turns
+		if u.hasSelected && u.canMove[squareY][squareX] {
+			u.board.Move(u.selected, chess.Pos{Row: squareY, Col: squareX})
+			u.hasSelected = false
+			return nil
+		}
+
 		if u.board.Pieces[squareY][squareX] == nil { // Clicking on no piece
 			u.hasSelected = false
 		} else if u.selected.Col == squareX && u.selected.Row == squareY { // Clicking on that piece
