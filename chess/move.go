@@ -12,4 +12,7 @@ func (b *Board) NextTurn() {
 	} else {
 		b.Turn = WHITE
 	}
+	if b.IsCheckMate() {
+		b.Checkmate = true
+	}
 }

@@ -7,6 +7,10 @@ import (
 )
 
 func (u *UI) Update() error {
+	if u.board.Checkmate {
+		return nil
+	}
+
 	// Hover
 	posx, posy := ebiten.CursorPosition()
 	posy = HEIGHT - posy // flip
