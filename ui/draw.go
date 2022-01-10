@@ -11,6 +11,12 @@ import (
 func (u *UI) Draw(screen *ebiten.Image) {
 	u.DrawSquares(screen)
 	u.DrawPieces(screen)
+
+	turnName := "White"
+	if u.board.Turn == chess.BLACK {
+		turnName = "Black"
+	}
+	u.DrawTextBottom(fmt.Sprintf("%s's Turn", turnName), screen)
 	ebitenutil.DebugPrint(screen, fmt.Sprintf("FPS: %0.2f", ebiten.CurrentFPS()))
 }
 

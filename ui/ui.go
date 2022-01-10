@@ -31,5 +31,5 @@ func NewUI(board *chess.Board) *UI {
 }
 
 func (u *UI) Layout(outsideWidth, outsideHeight int) (int, int) {
-	return WIDTH, HEIGHT
+	return WIDTH, HEIGHT + HEIGHT/len(u.board.Pieces) // Add space on bottom
 }
