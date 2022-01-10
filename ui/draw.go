@@ -28,7 +28,7 @@ func (u *UI) DrawPieces(screen *ebiten.Image) {
 				im = blackPieces[p.Type()]
 			}
 			opts := &ebiten.DrawImageOptions{}
-			opts.GeoM.Translate(float64(c)*float64(WIDTH/len(v)), float64(r)*float64(HEIGHT/len(u.board.Pieces)))
+			opts.GeoM.Translate(float64(c)*float64(WIDTH/len(v)), HEIGHT-(float64(r+1)*float64(HEIGHT/len(u.board.Pieces)))) // Height flipped
 			screen.DrawImage(im, opts)
 		}
 	}
@@ -46,7 +46,7 @@ func (u *UI) DrawSquares(screen *ebiten.Image) {
 			}
 
 			opts := &ebiten.DrawImageOptions{}
-			opts.GeoM.Translate(float64(c), float64(r))
+			opts.GeoM.Translate(float64(c), float64(len(u.board.Pieces)-r-1))
 			opts.GeoM.Scale(float64(WIDTH/len(v)), float64(HEIGHT/len(u.board.Pieces)))
 
 			screen.DrawImage(im, opts)
@@ -73,7 +73,7 @@ func (u *UI) DrawSquares(screen *ebiten.Image) {
 			// Overlay special squares
 			if drawSpecial {
 				opts = &ebiten.DrawImageOptions{}
-				opts.GeoM.Translate(float64(c), float64(r))
+				opts.GeoM.Translate(float64(c), float64(len(u.board.Pieces)-r-1))
 				opts.GeoM.Scale(float64(WIDTH/len(v)), float64(HEIGHT/len(u.board.Pieces)))
 				screen.DrawImage(im, opts)
 			}

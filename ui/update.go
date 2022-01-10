@@ -9,6 +9,8 @@ import (
 func (u *UI) Update() error {
 	// Hover
 	posx, posy := ebiten.CursorPosition()
+	posy = HEIGHT - posy // flip
+
 	squareWidth, squareHeight := WIDTH/len(u.board.Pieces[0]), HEIGHT/len(u.board.Pieces)
 	squareX, squareY := posx/squareWidth, posy/squareHeight
 

@@ -53,6 +53,7 @@ type Board struct {
 
 func NewBoard() *Board {
 	board := new(Board)
+	board.Turn = WHITE
 	for row := 0; row < 8; row++ {
 		for col := 0; col < 8; col++ {
 			board.Pieces[row][col] = nil
