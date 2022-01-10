@@ -8,6 +8,9 @@ func iabs(i int) int {
 }
 
 func (b *Board) Piece(pos Pos) Piece {
+	if pos.Row > 7 || pos.Row < 0 || pos.Col > 7 || pos.Col < 0 {
+		return nil
+	}
 	return b.Pieces[pos.Row][pos.Col]
 }
 

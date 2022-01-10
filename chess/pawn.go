@@ -9,6 +9,11 @@ func (p *Pawn) CanMoveTo(board *Board, currPos Pos, newPos Pos) bool {
 		return false
 	}
 
+	// Check if going 2 squares forward, make sure nothing in that spot
+	if iabs(currPos.Row-newPos.Row) == 2 && (currPos.Row == 1 || currPos.Row == 6) && (currPos.Col-newPos.Col) == 0 && board.Piece(newPos) == nil {
+		return true
+	}
+
 	// Check if going forwards
 	dir := 1
 	if p.Side() == BLACK {
@@ -19,7 +24,14 @@ func (p *Pawn) CanMoveTo(board *Board, currPos Pos, newPos Pos) bool {
 	}
 
 	// Check if to the side
-	if iabs(newPos.Col-currPos.Col) != 1 {
+	if newPos.Col-currPos.Col == 0 && board.Piece(newPos) != nil { // Check if capturing non-diagonally
+		return false
+	}
+
+	// Check if capturing diagonally
+	if iabs(newPos.Col-currPos.Col) == 1 && board.Piece(newPos) != nil {
+		return true
+	} else if iabs(newPos.Col-currPos.Col) != 0 { // Check if going diagonal when not capturing
 		return false
 	}
 

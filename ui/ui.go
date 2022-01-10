@@ -11,6 +11,9 @@ type UI struct {
 	selected    chess.Pos
 	hasSelected bool
 	canMove     [][]bool
+
+	hoverPos chess.Pos
+	hover    bool
 }
 
 func NewUI(board *chess.Board) *UI {

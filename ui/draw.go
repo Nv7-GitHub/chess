@@ -45,24 +45,38 @@ func (u *UI) DrawSquares(screen *ebiten.Image) {
 				im.Set(0, 0, blackBoardSquare)
 			}
 
+			opts := &ebiten.DrawImageOptions{}
+			opts.GeoM.Translate(float64(c), float64(r))
+			opts.GeoM.Scale(float64(WIDTH/len(v)), float64(HEIGHT/len(u.board.Pieces)))
+
+			screen.DrawImage(im, opts)
+
+			drawSpecial := false
 			if u.hasSelected {
 				// Add color filters
 				if r == u.selected.Row && c == u.selected.Col {
 					im.Set(0, 0, selectedPiece)
+					drawSpecial = true
 				} else if u.canMove[r][c] {
+					drawSpecial = true
 					if u.board.Piece(chess.Pos{Row: r, Col: c}) != nil {
 						im.Set(0, 0, killColor)
 					} else {
 						im.Set(0, 0, canMoveSquare)
 					}
 				}
+			} else if u.hover && u.hoverPos.Row == r && u.hoverPos.Col == c { // Hovering
+				drawSpecial = true
+				im.Set(0, 0, hoverColor)
 			}
 
-			opts := &ebiten.DrawImageOptions{}
-			opts.GeoM.Translate(float64(c), float64(r))
-			opts.GeoM.Scale(float64(WIDTH/len(v)), float64(HEIGHT/len(u.board.Pieces)))
-
-			screen.DrawImage(im, opts)
+			// Overlay special squares
+			if drawSpecial {
+				opts = &ebiten.DrawImageOptions{}
+				opts.GeoM.Translate(float64(c), float64(r))
+				opts.GeoM.Scale(float64(WIDTH/len(v)), float64(HEIGHT/len(u.board.Pieces)))
+				screen.DrawImage(im, opts)
+			}
 		}
 	}
 }

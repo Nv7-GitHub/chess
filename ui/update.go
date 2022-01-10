@@ -7,16 +7,26 @@ import (
 )
 
 func (u *UI) Update() error {
+	// Hover
+	posx, posy := ebiten.CursorPosition()
+	squareWidth, squareHeight := WIDTH/len(u.board.Pieces[0]), HEIGHT/len(u.board.Pieces)
+	squareX, squareY := posx/squareWidth, posy/squareHeight
+
+	p := u.board.Piece(chess.Pos{Row: squareY, Col: squareX})
+	if p != nil && p.Side() == u.board.Turn {
+		u.hover = true
+		u.hoverPos = chess.Pos{Row: squareY, Col: squareX}
+	} else {
+		u.hover = false
+		u.hoverPos = chess.Pos{Row: -1, Col: -1}
+	}
+
 	// Check if clicking on square
 	if inpututil.IsMouseButtonJustReleased(ebiten.MouseButtonLeft) {
-		posx, posy := ebiten.CursorPosition()
-		squareWidth, squareHeight := WIDTH/len(u.board.Pieces[0]), HEIGHT/len(u.board.Pieces)
-		squareX, squareY := posx/squareWidth, posy/squareHeight
-
 		// Is moving piece?
-		// TODO: Implement turns
 		if u.hasSelected && u.canMove[squareY][squareX] {
 			u.board.Move(u.selected, chess.Pos{Row: squareY, Col: squareX})
+			u.board.NextTurn()
 			u.hasSelected = false
 			return nil
 		}
@@ -25,7 +35,7 @@ func (u *UI) Update() error {
 			u.hasSelected = false
 		} else if u.selected.Col == squareX && u.selected.Row == squareY { // Clicking on that piece
 			u.hasSelected = !u.hasSelected
-		} else { // Clicking on another piece
+		} else if u.board.Piece(chess.Pos{Row: squareY, Col: squareX}).Side() == u.board.Turn { // Clicking on another piece, check if its your turn
 			u.hasSelected = true
 			u.selected.Col = squareX
 			u.selected.Row = squareY
