@@ -47,9 +47,11 @@ func (b *BasicPiece) CanMoveTo(board *Board, currPos Pos, newPos Pos) bool {
 }
 
 type Board struct {
-	Pieces    [8][8]Piece
-	Turn      Side
+	Pieces [8][8]Piece
+	Turn   Side
+
 	Checkmate bool
+	Check     bool
 }
 
 func NewBoard() *Board {

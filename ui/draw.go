@@ -18,6 +18,8 @@ func (u *UI) Draw(screen *ebiten.Image) {
 	}
 	if u.board.Checkmate {
 		u.DrawTextBottom(fmt.Sprintf("Checkmate on %s", turnName), screen)
+	} else if u.board.Check {
+		u.DrawTextBottom(fmt.Sprintf("Check on %s", turnName), screen)
 	} else {
 		u.DrawTextBottom(fmt.Sprintf("%s's Turn", turnName), screen)
 	}
