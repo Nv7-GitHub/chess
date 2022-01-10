@@ -5,10 +5,10 @@ import (
 
 	"github.com/Nv7-Github/chess/chess"
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
 func (u *UI) Draw(screen *ebiten.Image) {
+	// Draw
 	u.DrawSquares(screen)
 	u.DrawPieces(screen)
 
@@ -17,7 +17,7 @@ func (u *UI) Draw(screen *ebiten.Image) {
 		turnName = "Black"
 	}
 	u.DrawTextBottom(fmt.Sprintf("%s's Turn", turnName), screen)
-	ebitenutil.DebugPrint(screen, fmt.Sprintf("FPS: %0.2f", ebiten.CurrentFPS()))
+	//ebitenutil.DebugPrint(screen, fmt.Sprintf("FPS: %0.2f", ebiten.CurrentFPS()))
 }
 
 func (u *UI) DrawPieces(screen *ebiten.Image) {
@@ -28,13 +28,23 @@ func (u *UI) DrawPieces(screen *ebiten.Image) {
 			}
 
 			var im *ebiten.Image
+			opts := &ebiten.DrawImageOptions{}
+			scaleAmount := 0
 			if p.Side() == chess.WHITE {
 				im = whitePieces[p.Type()]
 			} else {
+				opts.GeoM.Scale(-1, -1)
+				scaleAmount = 1
 				im = blackPieces[p.Type()]
 			}
-			opts := &ebiten.DrawImageOptions{}
-			opts.GeoM.Translate(float64(c)*float64(WIDTH/len(v)), HEIGHT-(float64(r+1)*float64(HEIGHT/len(u.board.Pieces)))) // Height flipped
+
+			// Scale
+			scale := ebiten.DeviceScaleFactor()
+			opts.GeoM.Scale(scale, scale)
+			opts.Filter = ebiten.FilterLinear
+
+			// Translate
+			opts.GeoM.Translate(float64(c+1*scaleAmount)*float64(WIDTH/len(v)), float64(HEIGHT)-(float64(r+1*(1-scaleAmount))*float64(HEIGHT/len(u.board.Pieces)))) // Height flipped
 			screen.DrawImage(im, opts)
 		}
 	}

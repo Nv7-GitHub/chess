@@ -24,8 +24,9 @@ func init() {
 		panic(err)
 	}
 
+	scale := ebiten.DeviceScaleFactor()
 	fontBottom, err = opentype.NewFace(tt, &opentype.FaceOptions{
-		Size:    size,
+		Size:    size * scale,
 		DPI:     dpi,
 		Hinting: font.HintingFull,
 	})

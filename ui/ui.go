@@ -1,9 +1,15 @@
 package ui
 
-import "github.com/Nv7-Github/chess/chess"
+import (
+	"github.com/Nv7-Github/chess/chess"
+	"github.com/hajimehoshi/ebiten/v2"
+)
 
-const WIDTH = 480
-const HEIGHT = 480
+const width = 480
+const height = 480
+
+var WIDTH int
+var HEIGHT int
 
 type UI struct {
 	board *chess.Board
@@ -31,5 +37,8 @@ func NewUI(board *chess.Board) *UI {
 }
 
 func (u *UI) Layout(outsideWidth, outsideHeight int) (int, int) {
-	return WIDTH, HEIGHT + HEIGHT/len(u.board.Pieces) // Add space on bottom
+	s := ebiten.DeviceScaleFactor()
+	WIDTH = int(width * s)
+	HEIGHT = int(height * s)
+	return WIDTH, HEIGHT + HEIGHT/len(u.board.Pieces) // Add space on bottom, mult by hidpi
 }
