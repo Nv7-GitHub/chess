@@ -29,12 +29,9 @@ func (u *UI) DrawPieces(screen *ebiten.Image) {
 
 			var im *ebiten.Image
 			opts := &ebiten.DrawImageOptions{}
-			scaleAmount := 0
 			if p.Side() == chess.WHITE {
 				im = whitePieces[p.Type()]
 			} else {
-				opts.GeoM.Scale(-1, -1)
-				scaleAmount = 1
 				im = blackPieces[p.Type()]
 			}
 
@@ -44,7 +41,7 @@ func (u *UI) DrawPieces(screen *ebiten.Image) {
 			opts.Filter = ebiten.FilterLinear
 
 			// Translate
-			opts.GeoM.Translate(float64(c+1*scaleAmount)*float64(WIDTH/len(v)), float64(HEIGHT)-(float64(r+1*(1-scaleAmount))*float64(HEIGHT/len(u.board.Pieces)))) // Height flipped
+			opts.GeoM.Translate(float64(c)*float64(WIDTH/len(v)), float64(HEIGHT)-(float64(r+1)*float64(HEIGHT/len(u.board.Pieces)))) // Height flipped
 			screen.DrawImage(im, opts)
 		}
 	}

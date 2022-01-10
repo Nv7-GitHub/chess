@@ -79,5 +79,15 @@ func NewBoard() *Board {
 	board.Pieces[7][0].SetSide(BLACK)
 	board.Pieces[7][7] = &Rook{}
 	board.Pieces[7][7].SetSide(BLACK)
+
+	// Bishops
+	board.Pieces[0][1] = &Bishop{}
+	board.Pieces[0][1].SetSide(WHITE)
+	board.Pieces[0][6] = &Bishop{}
+	board.Pieces[0][6].SetSide(WHITE)
+	board.Pieces[7][1] = &Bishop{}
+	board.Pieces[7][1].SetSide(BLACK)
+	board.Pieces[7][6] = &Bishop{}
+	board.Pieces[7][6].SetSide(BLACK)
 	return board
 }
