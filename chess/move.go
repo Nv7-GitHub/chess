@@ -13,6 +13,7 @@ func (b *Board) NextTurn() {
 		b.Turn = WHITE
 	}
 	res := b.IsCheckMate()
+	// TODO: Stalemate
 	switch res {
 	case CheckMateNone:
 		b.Check = false
