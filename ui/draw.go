@@ -44,9 +44,20 @@ func (u *UI) DrawSquares(screen *ebiten.Image) {
 			} else {
 				im.Set(0, 0, blackBoardSquare)
 			}
+
+			if u.hasSelected {
+				// Add color filters
+				if r == u.selected.Row && c == u.selected.Col {
+					im.Set(0, 0, selectedPiece)
+				} else if u.canMove[r][c] {
+					im.Set(0, 0, canMoveSquare)
+				}
+			}
+
 			opts := &ebiten.DrawImageOptions{}
 			opts.GeoM.Translate(float64(c), float64(r))
 			opts.GeoM.Scale(float64(WIDTH/len(v)), float64(HEIGHT/len(u.board.Pieces)))
+
 			screen.DrawImage(im, opts)
 		}
 	}

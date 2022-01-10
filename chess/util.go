@@ -6,3 +6,7 @@ func iabs(i int) int {
 	}
 	return i
 }
+
+func (b *Board) Piece(pos Pos) Piece {
+	return b.Pieces[pos.Row][pos.Col]
+}
