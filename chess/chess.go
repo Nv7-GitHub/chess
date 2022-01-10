@@ -99,5 +99,11 @@ func NewBoard() *Board {
 	board.Pieces[7][2].SetSide(BLACK)
 	board.Pieces[7][5] = &Knight{}
 	board.Pieces[7][5].SetSide(BLACK)
+
+	// Kings
+	board.Pieces[0][4] = &King{}
+	board.Pieces[0][4].SetSide(WHITE)
+	board.Pieces[7][3] = &King{}
+	board.Pieces[7][3].SetSide(BLACK)
 	return board
 }

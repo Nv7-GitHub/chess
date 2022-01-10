@@ -20,6 +20,7 @@ var pieceTypeNames = map[string]chess.PieceType{
 	"bishop": chess.BISHOP,
 	"rook":   chess.ROOK,
 	"queen":  chess.QUEEN,
+	"king":   chess.KING,
 }
 
 func init() {
