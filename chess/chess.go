@@ -103,14 +103,14 @@ func NewBoard() *Board {
 	// Kings
 	board.Pieces[0][4] = &King{}
 	board.Pieces[0][4].SetSide(WHITE)
-	board.Pieces[7][3] = &King{}
-	board.Pieces[7][3].SetSide(BLACK)
+	board.Pieces[7][4] = &King{}
+	board.Pieces[7][4].SetSide(BLACK)
 
 	// Queens
 	board.Pieces[0][3] = &Queen{}
 	board.Pieces[0][3].SetSide(WHITE)
-	board.Pieces[7][4] = &Queen{}
-	board.Pieces[7][4].SetSide(BLACK)
+	board.Pieces[7][3] = &Queen{}
+	board.Pieces[7][3].SetSide(BLACK)
 
 	return board
 }
