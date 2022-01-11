@@ -54,14 +54,14 @@ func (u *UI) DrawPieces(screen *ebiten.Image) {
 }
 
 func (u *UI) DrawSquares(screen *ebiten.Image) {
-	im := ebiten.NewImage(1, 1)
+	var im *ebiten.Image
 
 	for r, v := range u.board.Pieces {
 		for c := range v {
 			if (r+c)%2 == 1 {
-				im.Set(0, 0, whiteBoardSquare)
+				im = u.getImage(whiteBoardSquare)
 			} else {
-				im.Set(0, 0, blackBoardSquare)
+				im = u.getImage(blackBoardSquare)
 			}
 
 			opts := &ebiten.DrawImageOptions{}
@@ -74,19 +74,19 @@ func (u *UI) DrawSquares(screen *ebiten.Image) {
 			if u.hasSelected {
 				// Add color filters
 				if r == u.selected.Row && c == u.selected.Col {
-					im.Set(0, 0, selectedPiece)
+					im = u.getImage(selectedPiece)
 					drawSpecial = true
 				} else if u.canMove[r][c] {
 					drawSpecial = true
 					if u.board.Piece(chess.Pos{Row: r, Col: c}) != nil {
-						im.Set(0, 0, killColor)
+						im = u.getImage(killColor)
 					} else {
-						im.Set(0, 0, canMoveSquare)
+						im = u.getImage(canMoveSquare)
 					}
 				}
 			} else if u.hover && u.hoverPos.Row == r && u.hoverPos.Col == c { // Hovering
 				drawSpecial = true
-				im.Set(0, 0, hoverColor)
+				im = u.getImage(hoverColor)
 			}
 
 			// Overlay special squares
