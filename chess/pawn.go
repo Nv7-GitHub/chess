@@ -11,7 +11,8 @@ func (p *Pawn) CanMoveTo(board *Board, currPos Pos, newPos Pos) bool {
 
 	// Check if going 2 squares forward, make sure nothing in that spot
 	if iabs(currPos.Row-newPos.Row) == 2 && (currPos.Row == 1 || currPos.Row == 6) && (currPos.Col-newPos.Col) == 0 && board.Piece(newPos) == nil {
-		return true
+		// Make sure nothing in the way
+		return board.Piece(Pos{currPos.Row + (newPos.Row-currPos.Row)/2, currPos.Col}) == nil
 	}
 
 	// Check if going forwards
