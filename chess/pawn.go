@@ -35,7 +35,7 @@ func (p *Pawn) CanMoveTo(board *Board, currPos Pos, newPos Pos) bool {
 		return false
 	}
 
-	return true
+	return p.BasicPiece.PostCanMoveTo(board, currPos, newPos)
 }
 
 func (p *Pawn) Type() PieceType {

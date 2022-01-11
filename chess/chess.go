@@ -46,6 +46,34 @@ func (b *BasicPiece) CanMoveTo(board *Board, currPos Pos, newPos Pos) bool {
 	return board.Piece(newPos) == nil || (board.Piece(newPos) != nil && board.Piece(newPos).Side() != b.Side()) // Checks if there is a piece of your side there
 }
 
+func (b *BasicPiece) PostCanMoveTo(board *Board, currPos Pos, newPos Pos) bool {
+	if board.Check {
+		// Simulate move
+		p := board.Piece(currPos)
+		oldP := board.Piece(newPos)
+
+		board.Pieces[newPos.Row][newPos.Col] = p
+		board.Pieces[currPos.Row][currPos.Col] = nil
+
+		// Find king
+		var kingPos Pos
+		for r, v := range board.Pieces {
+			for c, p := range v {
+				if p != nil && p.Side() == board.Turn && p.Type() == KING {
+					kingPos = Pos{r, c}
+				}
+			}
+		}
+		inCheck := board.IsPosCheck(board.Turn, kingPos)
+
+		board.Pieces[newPos.Row][newPos.Col] = oldP
+		board.Pieces[currPos.Row][currPos.Col] = p
+
+		return !inCheck
+	}
+	return true
+}
+
 type Board struct {
 	Pieces [8][8]Piece
 	Turn   Side

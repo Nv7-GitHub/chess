@@ -49,7 +49,7 @@ func (r *Rook) CanMoveTo(board *Board, currPos Pos, newPos Pos) bool {
 		cV += changeCol
 	}
 
-	return true
+	return r.BasicPiece.PostCanMoveTo(board, currPos, newPos)
 }
 
 func (r *Rook) Type() PieceType {

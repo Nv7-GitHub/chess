@@ -13,7 +13,11 @@ func (k *Knight) CanMoveTo(board *Board, currPos Pos, newPos Pos) bool {
 	diff.Row = iabs(diff.Row)
 	diff.Col = iabs(diff.Col)
 
-	return (diff.Row == 2 && diff.Col == 1) || (diff.Row == 1 && diff.Col == 2)
+	if !((diff.Row == 2 && diff.Col == 1) || (diff.Row == 1 && diff.Col == 2)) {
+		return false
+	}
+
+	return k.BasicPiece.PostCanMoveTo(board, currPos, newPos)
 }
 
 func (k *Knight) Type() PieceType {

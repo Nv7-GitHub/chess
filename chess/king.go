@@ -28,7 +28,11 @@ func (k *King) CanMoveTo(board *Board, currPos Pos, newPos Pos) bool {
 	board.Pieces[currPos.Row][currPos.Col] = k
 	board.Pieces[newPos.Row][newPos.Col] = p
 
-	return !inCheck
+	if inCheck {
+		return false
+	}
+
+	return k.BasicPiece.PostCanMoveTo(board, currPos, newPos)
 }
 
 func (k *King) Type() PieceType {

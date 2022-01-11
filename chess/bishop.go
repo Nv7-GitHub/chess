@@ -46,7 +46,7 @@ func (b *Bishop) CanMoveTo(board *Board, currPos Pos, newPos Pos) bool {
 		cV += changeCol
 	}
 
-	return true
+	return b.BasicPiece.PostCanMoveTo(board, currPos, newPos)
 }
 
 func (b *Bishop) Type() PieceType {

@@ -56,7 +56,7 @@ func (q *Queen) CanMoveTo(board *Board, currPos Pos, newPos Pos) bool {
 		cV += changeCol
 	}
 
-	return true
+	return q.BasicPiece.PostCanMoveTo(board, currPos, newPos)
 }
 
 func (q *Queen) Type() PieceType {
